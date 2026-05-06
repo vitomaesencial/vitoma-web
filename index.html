@@ -11,74 +11,67 @@
             --azul-noche: #1A1B25;
             --dorado: #D4AF37;
         }
-        body { background-color: var(--blanco-hueso); color: var(--azul-noche); }
+        body { background-color: var(--blanco-hueso); color: var(--azul-noche); font-family: sans-serif; }
+        /* Animación suave para el botón */
+        .bounce-hover:hover { transform: scale(1.1); transition: all 0.3s ease; }
     </style>
 </head>
 <body>
 
-    <nav class="p-4 border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <ul id="menu-dinamico" class="flex justify-center space-x-8 text-xs uppercase tracking-widest font-bold">
-            </ul>
+    <nav class="p-4 border-b bg-white/80 backdrop-blur-md sticky top-0 z-40">
+        <ul id="menu-dinamico" class="flex justify-center space-x-8 text-xs uppercase tracking-widest font-bold"></ul>
     </nav>
 
     <header class="py-16 px-4 text-center">
-        <h1 class="text-5xl font-light tracking-tighter uppercase mb-4">Vitoma</h1>
-        <p class="italic text-gray-600">Vida que contiene vida</p>
+        <h1 class="text-5xl font-light tracking-tighter uppercase mb-2 text-[--dorado]">Vitoma</h1>
+        <p class="italic text-gray-500">Vida que contiene vida</p>
     </header>
 
-    <main id="contenedor-productos" class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <main id="contenedor-productos" class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-24">
         </main>
 
+    <a href="https://wa.me/573007851872?text=Hola%20Vitoma!%20Quiero%20más%20información." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl bounce-hover flex items-center justify-center"
+       title="Chatea con nosotros">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
+
     <script>
-        // Tu URL de Google Apps Script
         const API_URL = "https://script.google.com/macros/s/AKfycbzQ-ots9PfkMOsQeU-OzI4-6J4kmraC0_jReiE00-Ul1YWnw_ccH0a9hz6Z--98jkQ/exec";
 
         async function inicializarApp() {
             const menuContenedor = document.getElementById('menu-dinamico');
             const productosContenedor = document.getElementById('contenedor-productos');
 
-            productosContenedor.innerHTML = "<p class='col-span-full text-center'>Cargando catálogo...</p>";
-
             try {
                 const res = await fetch(API_URL);
                 const json = await res.json();
                 
                 // Renderizado de Menú
-                menuContenedor.innerHTML = json.menu.map(m => {
-                    const nombre = m.Nombre || "Sección";
-                    const id = m.ID_Seccion || "inicio";
-                    return `<li><a href="#${id}" class="hover:text-[#D4AF37] transition-colors">${nombre}</a></li>`;
-                }).join('');
+                menuContenedor.innerHTML = json.menu.map(m => 
+                    `<li><a href="#${m.ID_Seccion || 'inicio'}" class="hover:text-[--dorado] transition-colors">${m.Nombre || 'Sección'}</a></li>`
+                ).join('');
 
                 // Renderizado de Productos
                 productosContenedor.innerHTML = json.productos.map(p => `
-                    <div class="bg-white border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow rounded-sm flex flex-col h-full">
-                        <img src="${p.URL_Imagen || 'https://via.placeholder.com/400x300?text=Vitoma+Producto'}" 
-                             class="w-full h-64 object-cover mb-4 rounded-sm"
-                             onerror="this.src='https://via.placeholder.com/400x300?text=Cargando+Imagen...'">
-                        
+                    <div class="bg-white border border-gray-100 p-6 shadow-sm flex flex-col h-full rounded-sm">
+                        <img src="${p.URL_Imagen || 'https://via.placeholder.com/400'}" class="w-full h-64 object-cover mb-4">
                         <h2 class="text-2xl font-bold mb-1">${p.Nombre || 'Producto'}</h2>
-                        <p class="text-[10px] text-[#D4AF37] font-black uppercase tracking-widest mb-4">
-                            ${p.Ingredientes || 'Natural'}
-                        </p>
-                        
-                        <p class="text-sm text-gray-700 leading-relaxed flex-grow">
-                            ${p.Funcion_Cuerpo || ''}
-                        </p>
-                        
+                        <p class="text-[10px] text-[--dorado] font-black uppercase mb-4">${p.Ingredientes || ''}</p>
+                        <p class="text-sm text-gray-700 flex-grow">${p.Funcion_Cuerpo || ''}</p>
                         <div class="mt-6 pt-4 border-t flex justify-between items-baseline">
                             <span class="text-xl font-light">$${p.Precio || '0'}</span>
                             <span class="text-[10px] text-gray-400 font-bold uppercase">${p.Tamaño || ''}</span>
                         </div>
                     </div>
                 `).join('');
-
             } catch (e) {
-                console.error("Error técnico:", e);
-                productosContenedor.innerHTML = "<p class='col-span-full text-center text-red-400'>Error al conectar con la base de datos.</p>";
+                console.error("Error:", e);
             }
         }
-
         inicializarApp();
     </script>
 </body>
