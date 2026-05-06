@@ -4,43 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vitoma Web App</title>
+    <!-- Tailwind CSS: Framework para estilos rápidos mediante clases[cite: 1, 2] -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#F9F8F2] text-[#1A1B25]">
 
-    <nav class="p-4 border-b">
-        <ul id="menu-dinamico" class="flex justify-center space-x-6"></ul>
+    <nav class="p-4 border-b bg-white/50 backdrop-blur-md sticky top-0 z-50">
+        <ul id="menu-dinamico" class="flex justify-center space-x-6 text-sm uppercase font-semibold"></ul>
     </nav>
 
-    <main id="contenedor-productos" class="p-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Los productos inyectados por JavaScript aparecerán aquí -->
+    <main id="contenedor-productos" class="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Espacio reservado para la inyección de datos por JS -->
     </main>
 
     <script>
-        // URL de tu implementación de Google Apps Script
+        // Endpoint de la base de datos (Google Apps Script)
         const API_URL = "https://script.google.com/macros/s/AKfycbzQ-ots9PfkMOsQeU-OzI4-6J4kmraC0_jReiE00-Ul1YWnw_ccH0a9hz6Z--98jkQ/exec";
 
         async function inicializarApp() {
+            const menuContenedor = document.getElementById('menu-dinamico');
+            const productosContenedor = document.getElementById('contenedor-productos');
+
+            // Feedback visual: Indica al usuario que el código está procesando[cite: 2]
+            productosContenedor.innerHTML = "<p class='col-span-full text-center'>Cargando universo Vitoma...</p>";
+
             try {
+                // Petición HTTP al servidor[cite: 2]
                 const res = await fetch(API_URL);
                 const json = await res.json();
                 
-                // Lógica de programación para renderizar componentes
-                document.getElementById('menu-dinamico').innerHTML = json.menu.map(m => 
-                    `<li><a href="#${m.ID_Seccion}">${m.Nombre}</a></li>`
+                // Limpieza de estados previos[cite: 2]
+                menuContenedor.innerHTML = "";
+                productosContenedor.innerHTML = "";
+
+                // Renderizado de Menú: Transforma el array del Excel en elementos <li>[cite: 2]
+                menuContenedor.innerHTML = json.menu.map(m => 
+                    `<li><a href="#${m.ID_Seccion}" class="hover:text-[#D4AF37] transition-colors">${m.Nombre}</a></li>`
                 ).join('');
 
-                document.getElementById('contenedor-productos').innerHTML = json.productos.map(p => 
-                    `<div class="border p-4">
-                        <img src="${p.URL_Imagen}" class="w-full h-64 object-cover">
-                        <h2 class="text-xl font-bold">${p.Nombre}</h2>
-                        <p>${p.Funcion_Cuerpo}</p>
+                // Renderizado de Productos: Crea tarjetas con los datos del Excel[cite: 2]
+                productosContenedor.innerHTML = json.productos.map(p => 
+                    `<div class="border p-6 shadow-sm bg-white rounded-sm flex flex-col h-full">
+                        <img src="${p.URL_Imagen}" 
+                             alt="Imagen de ${p.Nombre}" 
+                             class="w-full h-64 object-cover mb-4"
+                             onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+Próximamente'">
+                        <h2 class="text-2xl font-bold mb-2">${p.Nombre}</h2>
+                        <p class="text-gray-500 text-xs font-bold uppercase mb-4">${p.Ingredientes || ''}</p>
+                        <p class="text-sm text-gray-700 leading-relaxed flex-grow">${p.Funcion_Cuerpo}</p>
+                        <div class="mt-6 flex justify-between items-center border-t pt-4">
+                            <span class="text-lg font-bold text-[#4A5D4E]">$${p.Precio}</span>
+                            <span class="text-xs text-gray-400">${p.Tamaño || ''}</span>
+                        </div>
                     </div>`
                 ).join('');
+
             } catch (e) {
-                console.error("Error en la petición de datos:", e);
+                // Captura de excepciones técnicas[cite: 2]
+                console.error("Fallo en la comunicación con la API:", e);
+                productosContenedor.innerHTML = "<p class='col-span-full text-center text-red-500'>Error de conexión con la base de datos.</p>";
             }
         }
+
+        // Punto de entrada del programa[cite: 2]
         inicializarApp();
     </script>
 </body>
