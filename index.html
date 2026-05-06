@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitoma Web App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F9F8F2] text-[#1A1B25]">
+
+    <nav class="p-4 border-b">
+        <ul id="menu-dinamico" class="flex justify-center space-x-6"></ul>
+    </nav>
+
+    <main id="contenedor-productos" class="p-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Los productos inyectados por JavaScript aparecerán aquí -->
+    </main>
+
+    <script>
+        // URL de tu implementación de Google Apps Script
+        const API_URL = "https://script.google.com/macros/s/AKfycbzQ-ots9PfkMOsQeU-OzI4-6J4kmraC0_jReiE00-Ul1YWnw_ccH0a9hz6Z--98jkQ/exec";
+
+        async function inicializarApp() {
+            try {
+                const res = await fetch(API_URL);
+                const json = await res.json();
+                
+                // Lógica de programación para renderizar componentes
+                document.getElementById('menu-dinamico').innerHTML = json.menu.map(m => 
+                    `<li><a href="#${m.ID_Seccion}">${m.Nombre}</a></li>`
+                ).join('');
+
+                document.getElementById('contenedor-productos').innerHTML = json.productos.map(p => 
+                    `<div class="border p-4">
+                        <img src="${p.URL_Imagen}" class="w-full h-64 object-cover">
+                        <h2 class="text-xl font-bold">${p.Nombre}</h2>
+                        <p>${p.Funcion_Cuerpo}</p>
+                    </div>`
+                ).join('');
+            } catch (e) {
+                console.error("Error en la petición de datos:", e);
+            }
+        }
+        inicializarApp();
+    </script>
+</body>
+</html>
