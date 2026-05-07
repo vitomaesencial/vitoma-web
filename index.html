@@ -6,35 +6,151 @@
     <title>Vitoma - Vida que contiene vida</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --verde-vitoma: #4A5D4E; --dorado-vitoma: #D4AF37; --blanco-hueso: #F9F8F2; }
-        body { background-color: var(--blanco-hueso); min-height: 100vh; margin: 0; font-family: 'Helvetica Neue', sans-serif; overflow-x: hidden; }
-        #fondo-marca-agua { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-repeat: no-repeat; background-position: center; background-size: 80%; opacity: 0.05; z-index: -1; pointer-events: none; }
-        .franja-anuncios { background-color: var(--dorado-vitoma); color: white; font-size: 12px; font-weight: bold; padding: 6px 0; text-transform: uppercase; letter-spacing: 2px; }
-        #menu-mobile { display: none; transition: 0.3s; }
-        #menu-mobile.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--verde-vitoma); padding: 20px; z-index: 100; }
-        .btn-nav { background: none; border: none; color: white; cursor: pointer; font-size: 17px; font-weight: 500; padding: 10px; transition: 0.3s; }
+        :root { 
+            --verde-vitoma: #4A5D4E; 
+            --dorado-vitoma: #D4AF37; 
+            --blanco-hueso: #F9F8F2; 
+        }
+
+        body { 
+            background-color: var(--blanco-hueso); 
+            min-height: 100vh; 
+            margin: 0; 
+            font-family: 'Helvetica Neue', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        /* Marca de agua de fondo */
+        #fondo-marca-agua { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-repeat: no-repeat; 
+            background-position: center; 
+            background-size: 80%; 
+            opacity: 0.05; 
+            z-index: -1; 
+            pointer-events: none; 
+        }
+
+        /* Franja superior */
+        .franja-anuncios { 
+            background-color: var(--dorado-vitoma); 
+            color: white; 
+            font-size: 13px; 
+            font-weight: 600; 
+            padding: 8px 0; 
+            letter-spacing: 1px; 
+        }
+
+        /* Logo con tamaño ampliado */
+        #logo-header { 
+            height: 80px; 
+            width: auto; 
+            object-fit: contain; 
+            transition: transform 0.3s;
+        }
+        #logo-header:hover { transform: scale(1.03); }
+
+        /* Navegación */
+        .btn-nav { 
+            background: none; 
+            border: none; 
+            color: white; 
+            cursor: pointer; 
+            font-size: 17px; 
+            font-weight: 500; 
+            padding: 10px; 
+            transition: 0.3s; 
+        }
         .btn-nav:hover { color: var(--dorado-vitoma); }
-        .prose-vitoma { max-width: 800px; margin: 0 auto; line-height: 1.8; }
-        .prose-vitoma h1 { color: var(--verde-vitoma); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; text-align: center; font-size: 2.5rem; }
+
+        /* Menú Móvil */
+        #menu-mobile { display: none; transition: 0.3s; }
+        #menu-mobile.active { 
+            display: flex; 
+            flex-direction: column; 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            width: 100%; 
+            background: var(--verde-vitoma); 
+            padding: 20px; 
+            z-index: 100; 
+        }
+
+        /* Estilo Editorial de Secciones */
+        .prose-vitoma { 
+            max-width: 850px; 
+            margin: 0 auto; 
+            line-height: 1.8; 
+        }
+        .prose-vitoma h1 { 
+            color: var(--verde-vitoma); 
+            letter-spacing: 2px; 
+            margin-bottom: 2.5rem; 
+            text-align: center; 
+            font-size: 3rem; 
+            font-weight: 300;
+        }
+        .prose-vitoma .text-justify {
+            color: #374151;
+            font-size: 1.15rem;
+        }
+
+        /* Animación suave para carga de contenido */
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
     <div id="fondo-marca-agua"></div>
-    <div class="franja-anuncios overflow-hidden"><marquee scrollamount="6" id="texto-anuncio-val">Cargando...</marquee></div>
+    <div class="franja-anuncios overflow-hidden">
+        <marquee scrollamount="6" id="texto-anuncio-val">Cargando novedades...</marquee>
+    </div>
 
     <header class="bg-[#4A5D4E] text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative">
-            <div class="w-1/3 md:w-1/4">
-                <img id="logo-header" src="" class="h-14 w-auto object-contain cursor-pointer" onclick="window.location.hash=''; location.reload();">
+            
+            <div class="flex-shrink-0">
+                <img id="logo-header" src="" class="cursor-pointer" onclick="window.location.hash=''; location.reload();">
             </div>
-            <nav class="hidden md:flex flex-grow justify-center"><div id="menu-dinamico" class="flex space-x-10"></div></nav>
-            <button class="md:hidden text-white" onclick="toggleMenu()"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
+            
+            <nav class="hidden md:flex flex-grow justify-center">
+                <div id="menu-dinamico" class="flex space-x-10"></div>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-4 relative">
+                <input type="text" id="input-busqueda" placeholder="Buscar..." 
+                    class="bg-white/10 border border-white/20 rounded-full px-4 py-1 text-sm focus:outline-none focus:bg-white focus:text-gray-800 transition-all w-0 opacity-0 overflow-hidden">
+                
+                <button onclick="toggleBusqueda()" class="text-white opacity-70 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+
+            <button class="md:hidden text-white" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+            
             <div id="menu-mobile" class="md:hidden shadow-xl"></div>
-            <div class="hidden md:block w-1/4"></div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 md:p-14"><div id="vista-seccion"></div></main>
+    <main class="max-w-7xl mx-auto p-6 md:p-14">
+        <div id="vista-seccion"></div>
+    </main>
 
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycby2H9_EwDImYT_isi-v0ghnQQb_-DuteSGSpU4k671DU6hXmdYSDCZCIW5EVayoLow/exec";
@@ -42,12 +158,24 @@
 
         function toggleMenu() { document.getElementById('menu-mobile').classList.toggle('active'); }
 
+        function toggleBusqueda() {
+            const input = document.getElementById('input-busqueda');
+            if (input.classList.contains('w-0')) {
+                input.classList.remove('w-0', 'opacity-0');
+                input.classList.add('w-48', 'opacity-100');
+                input.focus();
+            } else {
+                input.classList.add('w-0', 'opacity-0');
+                input.classList.remove('w-48', 'opacity-100');
+                input.value = "";
+            }
+        }
+
         async function inicializarApp() {
             try {
                 const res = await fetch(API_URL);
                 datosGlobales = await res.json();
                 
-                // Configuración (Limpieza de espacios para asegurar carga)
                 const config = datosGlobales.config || [];
                 const getVal = (p) => config.find(c => c.Parametro.trim().toLowerCase() === p.toLowerCase())?.Valor;
 
@@ -55,12 +183,10 @@
                 if(getVal('url_fondo')) document.getElementById('fondo-marca-agua').style.backgroundImage = `url('${getVal('url_fondo')}')`;
                 if(getVal('texto_anuncio')) document.getElementById('texto-anuncio-val').innerText = getVal('texto_anuncio');
 
-                // Menús
                 const html = datosGlobales.menu.map(m => `<button onclick="navegar('${m.ID_Seccion.trim()}')" class="btn-nav">${m.Nombre}</button>`).join('');
                 document.getElementById('menu-dinamico').innerHTML = html;
                 document.getElementById('menu-mobile').innerHTML = html;
 
-                // Cargar según URL o por defecto
                 const hash = window.location.hash.replace('#', '');
                 navegar(hash || datosGlobales.menu[0].ID_Seccion.trim());
 
@@ -68,7 +194,7 @@
         }
 
         function navegar(id) {
-            window.location.hash = id; // Esto cambia la URL a .../#nosotros
+            window.location.hash = id;
             cambiarSeccion(id);
             if(window.innerWidth < 768) document.getElementById('menu-mobile').classList.remove('active');
         }
@@ -81,20 +207,43 @@
                 vista.innerHTML = `<div class="prose-vitoma animate-fade-in"><h1>${sec.Titulo || ''}</h1><div class="text-justify text-lg text-gray-700">${sec.Contenido}</div></div>`;
             } else {
                 const prods = datosGlobales.productos.filter(p => p.ID_Seccion.trim().toLowerCase() === id.toLowerCase());
-                vista.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    ${prods.map(p => `
-                        <div class="bg-white p-6 md:p-8 flex flex-col h-full rounded-sm shadow-sm border border-gray-100 hover:shadow-xl transition-all">
-                            <img src="${p.URL_Imagen}" class="w-full h-64 object-cover mb-6" onerror="this.style.display='none'">
-                            <h3 class="text-2xl font-bold text-gray-900 mb-2">${p.Nombre}</h3>
-                            <p class="text-[10px] text-[#D4AF37] font-black tracking-widest mb-4 uppercase">${p.Ingredientes || ''}</p>
-                            <p class="text-sm text-gray-600 flex-grow italic mb-6">${p.Funcion_Cuerpo || ''}</p>
-                            <div class="mt-auto pt-4 border-t flex justify-between items-baseline font-light text-2xl text-[#4A5D4E]">
-                                <span>$${p.Precio}</span><span class="text-xs font-bold text-gray-300 uppercase">${p.Tamaño || ''}</span>
-                            </div>
-                        </div>`).join('')}</div>`;
+                if(prods.length > 0) {
+                    vista.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 animate-fade-in">
+                        ${prods.map(p => `
+                            <div class="bg-white p-6 md:p-8 flex flex-col h-full rounded-sm shadow-sm border border-gray-100 hover:shadow-xl transition-all">
+                                <img src="${p.URL_Imagen}" class="w-full h-64 object-cover mb-6" onerror="this.style.display='none'">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">${p.Nombre}</h3>
+                                <p class="text-[10px] text-[#D4AF37] font-black tracking-widest mb-4 uppercase">${p.Ingredientes || ''}</p>
+                                <p class="text-sm text-gray-600 flex-grow italic mb-6">${p.Funcion_Cuerpo || ''}</p>
+                                <div class="mt-auto pt-4 border-t flex justify-between items-baseline font-light text-2xl text-[#4A5D4E]">
+                                    <span>$${p.Precio}</span><span class="text-xs font-bold text-gray-300 uppercase">${p.Tamaño || ''}</span>
+                                </div>
+                            </div>`).join('')}</div>`;
+                }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Lógica de búsqueda
+        document.getElementById('input-busqueda').addEventListener('input', (e) => {
+            const termino = e.target.value.toLowerCase().trim();
+            if (termino.length < 2) return;
+
+            const vista = document.getElementById('vista-seccion');
+            const prods = datosGlobales.productos.filter(p => 
+                p.Nombre.toLowerCase().includes(termino) || (p.Ingredientes && p.Ingredientes.toLowerCase().includes(termino))
+            );
+            const secs = datosGlobales.secciones.filter(s => 
+                s.Titulo.toLowerCase().includes(termino) || s.Contenido.toLowerCase().includes(termino)
+            );
+
+            if (prods.length > 0 || secs.length > 0) {
+                vista.innerHTML = `<div class="animate-fade-in"><h2 class="text-xl mb-8 italic text-gray-500">Resultados para: "${termino}"</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">${prods.map(p => `<div class="bg-white p-4 border rounded shadow-sm"><h3 class="font-bold">${p.Nombre}</h3><p class="text-sm text-gray-500">${p.Precio}</p><button onclick="navegar('${p.ID_Seccion}')" class="text-xs text-[#D4AF37] underline mt-2">Ver producto</button></div>`).join('')}</div>
+                <div class="mt-10 space-y-6">${secs.map(s => `<div class="border-l-4 border-[#D4AF37] pl-4"><h3 class="font-bold text-lg">${s.Titulo}</h3><button onclick="navegar('${s.ID_Seccion}')" class="text-sm text-gray-400">Ver sección...</button></div>`).join('')}</div></div>`;
+            }
+        });
+
         inicializarApp();
     </script>
 </body>
