@@ -35,7 +35,6 @@
             pointer-events: none; 
         }
 
-        /* Franja superior */
         .franja-anuncios { 
             background-color: var(--dorado-vitoma); 
             color: white; 
@@ -45,17 +44,15 @@
             letter-spacing: 1px; 
         }
 
-        /* LOGO AMPLIADO - Ajustado a 110px para mayor visibilidad */
         #logo-header { 
             height: 110px; 
             width: auto; 
             object-fit: contain; 
             transition: transform 0.3s;
-            margin-top: -5px; /* Pequeño ajuste para centrar visualmente */
+            margin-top: -5px;
         }
         #logo-header:hover { transform: scale(1.03); }
 
-        /* Navegación */
         .btn-nav { 
             background: none; 
             border: none; 
@@ -68,7 +65,6 @@
         }
         .btn-nav:hover { color: var(--dorado-vitoma); }
 
-        /* Menú Móvil */
         #menu-mobile { display: none; transition: 0.3s; }
         #menu-mobile.active { 
             display: flex; 
@@ -82,7 +78,6 @@
             z-index: 100; 
         }
 
-        /* Estilo Editorial de Secciones */
         .prose-vitoma { 
             max-width: 850px; 
             margin: 0 auto; 
@@ -96,12 +91,7 @@
             font-size: 3rem; 
             font-weight: 300;
         }
-        .prose-vitoma .text-justify {
-            color: #374151;
-            font-size: 1.15rem;
-        }
 
-        /* Animación suave */
         .animate-fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -109,6 +99,10 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Scrollbar suave para las miniaturas */
+        .custom-scrollbar::-webkit-scrollbar { height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -210,16 +204,36 @@
                 const prods = datosGlobales.productos.filter(p => p.ID_Seccion.trim().toLowerCase() === id.toLowerCase());
                 if(prods.length > 0) {
                     vista.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 animate-fade-in">
-                        ${prods.map(p => `
+                        ${prods.map(p => {
+                            const imagenes = p.URL_Imagen.split(',').map(img => img.trim());
+                            const mainImgId = `img-main-${p.Nombre.replace(/\s+/g, '')}`;
+                            
+                            return `
                             <div class="bg-white p-6 md:p-8 flex flex-col h-full rounded-sm shadow-sm border border-gray-100 hover:shadow-xl transition-all">
-                                <img src="${p.URL_Imagen}" class="w-full h-64 object-cover mb-6" onerror="this.style.display='none'">
+                                <div class="relative mb-6">
+                                    <img id="${mainImgId}" src="${imagenes[0]}" class="w-full h-64 object-cover rounded-sm shadow-inner transition-opacity duration-300">
+                                    ${imagenes.length > 1 ? `
+                                        <div class="flex gap-2 mt-3 overflow-x-auto pb-2 custom-scrollbar">
+                                            ${imagenes.map(img => `
+                                                <img src="${img}" onclick="document.getElementById('${mainImgId}').src='${img}'" 
+                                                     class="w-12 h-12 object-cover cursor-pointer border border-gray-200 hover:border-[#D4AF37] transition-all opacity-80 hover:opacity-100">
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+
                                 <h3 class="text-2xl font-bold text-gray-900 mb-2">${p.Nombre}</h3>
                                 <p class="text-[10px] text-[#D4AF37] font-black tracking-widest mb-4 uppercase">${p.Ingredientes || ''}</p>
-                                <p class="text-sm text-gray-600 flex-grow italic mb-6">${p.Funcion_Cuerpo || ''}</p>
+                                
+                                <div class="text-sm text-gray-600 flex-grow italic mb-6 leading-relaxed">
+                                    ${p.Funcion_Cuerpo || ''}
+                                </div>
+
                                 <div class="mt-auto pt-4 border-t flex justify-between items-baseline font-light text-2xl text-[#4A5D4E]">
                                     <span>$${p.Precio}</span><span class="text-xs font-bold text-gray-300 uppercase">${p.Tamaño || ''}</span>
                                 </div>
-                            </div>`).join('')}</div>`;
+                            </div>`;
+                        }).join('')}</div>`;
                 }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
