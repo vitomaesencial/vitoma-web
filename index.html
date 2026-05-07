@@ -74,10 +74,15 @@
                 if(urlLogo) document.getElementById('logo-header').src = urlLogo;
                 if(urlFondo) document.getElementById('fondo-marca-agua').style.backgroundImage = `url('${urlFondo}')`;
 
-                // Renderizar Menú (innerHTML para aceptar el código del Excel)
-                document.getElementById('menu-dinamico').innerHTML = datosGlobales.menu.map(m => 
-                    `<li><button onclick="cambiarSeccion('${m.ID_Seccion}')" class="btn-menu">${m.Nombre}</button></li>`
-                ).join('');
+                // Renderizar Menú con soporte HTML limpio
+                document.getElementById('menu-dinamico').innerHTML = datosGlobales.menu.map(m => {
+                // Si m.Nombre viene con código del excel, lo inyectamos directamente
+            return `<li>
+            <button onclick="cambiarSeccion('${m.ID_Seccion}')" class="hover:opacity-70 transition-all">
+            ${m.Nombre}
+            </button>
+            </li>`;
+        }).join('');
 
                 cambiarSeccion(datosGlobales.menu[0].ID_Seccion);
             } catch (e) { console.error("Error:", e); }
