@@ -45,12 +45,13 @@
             letter-spacing: 1px; 
         }
 
-        /* Logo con tamaño ampliado */
+        /* LOGO AMPLIADO - Ajustado a 110px para mayor visibilidad */
         #logo-header { 
-            height: 80px; 
+            height: 110px; 
             width: auto; 
             object-fit: contain; 
             transition: transform 0.3s;
+            margin-top: -5px; /* Pequeño ajuste para centrar visualmente */
         }
         #logo-header:hover { transform: scale(1.03); }
 
@@ -100,7 +101,7 @@
             font-size: 1.15rem;
         }
 
-        /* Animación suave para carga de contenido */
+        /* Animación suave */
         .animate-fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -188,7 +189,7 @@
                 document.getElementById('menu-mobile').innerHTML = html;
 
                 const hash = window.location.hash.replace('#', '');
-                navegar(hash || datosGlobales.menu[0].ID_Seccion.trim());
+                navegar(hash || (datosGlobales.menu[0] ? datosGlobales.menu[0].ID_Seccion.trim() : ''));
 
             } catch (e) { console.error("Error:", e); }
         }
@@ -224,7 +225,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Lógica de búsqueda
         document.getElementById('input-busqueda').addEventListener('input', (e) => {
             const termino = e.target.value.toLowerCase().trim();
             if (termino.length < 2) return;
