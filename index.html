@@ -6,63 +6,43 @@
     <title>Vitoma - Vida que contiene vida</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --verde-vitoma: #4A5D4E;
-            --blanco-hueso: #F9F8F2;
-        }
-        body { 
-            background-color: var(--blanco-hueso); 
-            position: relative;
-            min-height: 100vh;
-            font-family: ui-sans-serif, system-ui, sans-serif;
-        }
-        /* Punto 5: Imagen de fondo con transparencia (Marca de agua) */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://raw.githubusercontent.com/vitomaesencial/vitoma-web/main/logo-vitoma.png'); 
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 60%;
-            opacity: 0.04; 
-            z-index: -1;
-        }
-        .boton-ws { transition: all 0.3s ease; }
-        .boton-ws:hover { transform: scale(1.1); }
+        :root { --verde-vitoma: #4A5D4E; --blanco-hueso: #F9F8F2; }
+        body { background-color: var(--blanco-hueso); min-height: 100vh; position: relative; }
         
-        /* Estilo para que el menú solo tenga la primera letra mayúscula */
-        .menu-item::first-letter {
-            text-transform: uppercase;
+        /* Capa de fondo parametrizada vía JS */
+        #fondo-marca-agua {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-repeat: no-repeat; background-position: center;
+            background-size: contain; opacity: 0.05; z-index: -1;
         }
+
+        .menu-item::first-letter { text-transform: uppercase; }
+        /* Estilos para el contenido tipo "Word" */
+        .contenido-custom h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; color: var(--verde-vitoma); }
+        .contenido-custom p { margin-bottom: 1.2rem; line-height: 1.8; color: #444; }
     </style>
 </head>
 <body>
 
+    <div id="fondo-marca-agua"></div>
+
     <header class="bg-[#4A5D4E] text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="https://raw.githubusercontent.com/vitomaesencial/vitoma-web/main/logo-vitoma.png" alt="Logo Vitoma" class="h-10 w-auto bg-white rounded-full p-0.5">
+                <img id="logo-header" src="" alt="Vitoma" class="h-10 w-auto bg-white rounded-full p-0.5">
                 <span class="text-xl font-bold tracking-tight uppercase">Vitoma</span>
             </div>
-            <nav>
-                <ul id="menu-dinamico" class="flex space-x-5 text-sm font-medium lowercase">
-                    </ul>
-            </nav>
+            <nav><ul id="menu-dinamico" class="flex space-x-5 text-sm font-medium lowercase"></ul></nav>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-6 md:p-10">
-        <h2 id="titulo-seccion" class="text-3xl font-light mb-10 text-center text-[#4A5D4E] capitalize"></h2>
-        <div id="contenedor-productos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <main class="max-w-6xl mx-auto p-6 md:p-12">
+        <div id="vista-seccion" class="contenido-custom">
             </div>
     </main>
 
-    <a href="https://wa.me/573007851872" target="_blank" 
-       class="boton-ws fixed bottom-8 right-8 z-[9999] bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-        </svg>
+    <a href="https://wa.me/573007851872" target="_blank" class="fixed bottom-8 right-8 z-[9999] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
     </a>
 
     <script>
@@ -74,46 +54,53 @@
                 const res = await fetch(API_URL);
                 datosGlobales = await res.json();
                 
-                // Renderizar menú (Texto en minúscula, CSS se encarga de Capitalizar)
+                // Configuración de Imágenes desde Excel
+                const config = datosGlobales.config || [];
+                const urlLogo = config.find(c => c.Parametro === 'url_logo')?.Valor;
+                const urlFondo = config.find(c => c.Parametro === 'url_fondo')?.Valor;
+                
+                if(urlLogo) document.getElementById('logo-header').src = urlLogo;
+                if(urlFondo) document.getElementById('fondo-marca-agua').style.backgroundImage = `url('${urlFondo}')`;
+
+                // Renderizar Menú
                 document.getElementById('menu-dinamico').innerHTML = datosGlobales.menu.map(m => 
                     `<li><button onclick="cambiarSeccion('${m.ID_Seccion}')" class="menu-item hover:text-gray-300 transition-colors">${m.Nombre.toLowerCase()}</button></li>`
                 ).join('');
 
-                // Mostrar primera sección al cargar
-                if(datosGlobales.menu.length > 0) {
-                    cambiarSeccion(datosGlobales.menu[0].ID_Seccion);
-                }
+                cambiarSeccion(datosGlobales.menu[0].ID_Seccion);
             } catch (e) { console.error("Error:", e); }
         }
 
         function cambiarSeccion(idSeccion) {
-            const titulo = document.getElementById('titulo-seccion');
-            const contenedor = document.getElementById('contenedor-productos');
+            const vista = document.getElementById('vista-seccion');
             
-            const seccionActual = datosGlobales.menu.find(m => m.ID_Seccion === idSeccion);
-            titulo.innerText = seccionActual ? seccionActual.Nombre : "";
-
-            // Filtrado por ID_Seccion (Debes tener esta columna en tu hoja Productos)
-            const productosFiltrados = datosGlobales.productos.filter(p => String(p.ID_Seccion) === String(idSeccion));
-
-            contenedor.innerHTML = productosFiltrados.map(p => `
-                <div class="bg-white/90 backdrop-blur-sm border border-gray-100 p-6 flex flex-col h-full rounded-sm shadow-sm hover:shadow-md transition-all">
-                    <img src="${p.URL_Imagen}" class="w-full h-48 object-cover mb-4 rounded-sm" onerror="this.src='https://via.placeholder.com/400x300?text=Vitoma'">
-                    <h3 class="text-xl font-bold text-[#1A1B25]">${p.Nombre}</h3>
-                    <p class="text-[10px] text-[#4A5D4E] font-extrabold tracking-widest mb-4 uppercase">${p.Ingredientes || ''}</p>
-                    <p class="text-sm text-gray-600 flex-grow leading-relaxed">${p.Funcion_Cuerpo || ''}</p>
-                    <div class="mt-6 pt-4 border-t flex justify-between items-center font-bold text-lg text-[#4A5D4E]">
-                        <span>$${p.Precio}</span>
-                        <span class="text-[10px] text-gray-400 uppercase">${p.Tamaño || ''}</span>
+            // 1. Intentar buscar en hoja "Secciones" (Tipo Word)
+            const contenidoTexto = datosGlobales.secciones?.find(s => s.ID_Seccion === idSeccion);
+            
+            if (contenidoTexto) {
+                vista.innerHTML = `
+                    <h1 class="text-4xl font-light mb-6 text-[#4A5D4E]">${contenidoTexto.Titulo || ''}</h1>
+                    <div class="prose max-w-none text-gray-700">${contenidoTexto.Contenido}</div>
+                `;
+            } else {
+                // 2. Si no hay texto, buscar en "Productos" (Tipo Marketplace)
+                const productosFiltrados = datosGlobales.productos.filter(p => String(p.ID_Seccion) === String(idSeccion));
+                
+                vista.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        ${productosFiltrados.map(p => `
+                            <div class="bg-white/90 border p-6 flex flex-col h-full rounded-sm shadow-sm">
+                                <img src="${p.URL_Imagen}" class="w-full h-48 object-cover mb-4 rounded-sm">
+                                <h3 class="text-xl font-bold">${p.Nombre}</h3>
+                                <p class="text-[10px] text-[#4A5D4E] font-extrabold uppercase mb-4">${p.Ingredientes || ''}</p>
+                                <p class="text-sm text-gray-600 flex-grow">${p.Funcion_Cuerpo || ''}</p>
+                                <div class="mt-6 pt-4 border-t font-bold text-[#4A5D4E]">$${p.Precio}</div>
+                            </div>
+                        `).join('')}
                     </div>
-                </div>
-            `).join('');
-
-            if(productosFiltrados.length === 0) {
-                contenedor.innerHTML = "<p class='col-span-full text-center text-gray-400 py-20'>Contenido en preparación para esta sección.</p>";
+                `;
             }
         }
-
         inicializarApp();
     </script>
 </body>
