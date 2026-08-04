@@ -1,264 +1,269 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
+    <!-- VITOMA V2.3 - B2B Presentation Release -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vitoma - Vida que contiene vida</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root { 
-            --verde-vitoma: #4A5D4E; 
-            --dorado-vitoma: #D4AF37; 
-            --blanco-hueso: #F9F8F2; 
-        }
+    
+    <title>Vitoma — Vida que contiene vida</title>
+    <meta name="description" content="Un puente entre la sabiduría biológica y la nutrición cotidiana. Descubre nuestro Ghee artesanal.">
+    <meta name="theme-color" content="#F7F4EE">
 
-        body { 
-            background-color: var(--blanco-hueso); 
-            min-height: 100vh; 
-            margin: 0; 
-            font-family: 'Helvetica Neue', sans-serif; 
-            overflow-x: hidden; 
-        }
+    <!-- Tipografías de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        /* Marca de agua de fondo */
-        #fondo-marca-agua { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-repeat: no-repeat; 
-            background-position: center; 
-            background-size: 80%; 
-            opacity: 0.05; 
-            z-index: -1; 
-            pointer-events: none; 
-        }
-
-        .franja-anuncios { 
-            background-color: var(--dorado-vitoma); 
-            color: white; 
-            font-size: 13px; 
-            font-weight: 600; 
-            padding: 8px 0; 
-            letter-spacing: 1px; 
-        }
-
-        #logo-header { 
-            height: 110px; 
-            width: auto; 
-            object-fit: contain; 
-            transition: transform 0.3s;
-            margin-top: -5px;
-        }
-        #logo-header:hover { transform: scale(1.03); }
-
-        .btn-nav { 
-            background: none; 
-            border: none; 
-            color: white; 
-            cursor: pointer; 
-            font-size: 17px; 
-            font-weight: 500; 
-            padding: 10px; 
-            transition: 0.3s; 
-        }
-        .btn-nav:hover { color: var(--dorado-vitoma); }
-
-        #menu-mobile { display: none; transition: 0.3s; }
-        #menu-mobile.active { 
-            display: flex; 
-            flex-direction: column; 
-            position: absolute; 
-            top: 100%; 
-            left: 0; 
-            width: 100%; 
-            background: var(--verde-vitoma); 
-            padding: 20px; 
-            z-index: 100; 
-        }
-
-        .prose-vitoma { 
-            max-width: 850px; 
-            margin: 0 auto; 
-            line-height: 1.8; 
-        }
-        .prose-vitoma h1 { 
-            color: var(--verde-vitoma); 
-            letter-spacing: 2px; 
-            margin-bottom: 2.5rem; 
-            text-align: center; 
-            font-size: 3rem; 
-            font-weight: 300;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Scrollbar suave para las miniaturas */
-        .custom-scrollbar::-webkit-scrollbar { height: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
-    </style>
+    <!-- Hoja de Estilos -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="fondo-marca-agua"></div>
-    <div class="franja-anuncios overflow-hidden">
-        <marquee scrollamount="6" id="texto-anuncio-val">Cargando novedades...</marquee>
-    </div>
 
-    <header class="bg-[#4A5D4E] text-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between relative">
-            
-            <div class="flex-shrink-0">
-                <img id="logo-header" src="" class="cursor-pointer" onclick="window.location.hash=''; location.reload();">
-            </div>
-            
-            <nav class="hidden md:flex flex-grow justify-center">
-                <div id="menu-dinamico" class="flex space-x-10"></div>
+    <!-- ILUSTRACIÓN BOTÁNICA DE FONDO (MARCA DE AGUA EDITORIAL) -->
+    <div class="watermark-bg" aria-hidden="true"></div>
+
+    <!-- CABECERA EDITORIAL Y NAVEGACIÓN -->
+    <header class="site-header">
+        <div class="nav-container">
+            <!-- Logo Integrado sin Recuadro mediante blend-mode -->
+            <a href="#inicio" class="brand-logo-link" aria-label="Vitoma Inicio">
+                <img src="assets/Logo-positivo.png" alt="Vitoma" class="nav-logo-img">
+            </a>
+
+            <!-- Navegación Simplificada (Sin sección Sabiduría) -->
+            <nav class="nav-links">
+                <a href="#manifiesto">Manifiesto</a>
+                <a href="#ghee">Ghee</a>
+                <a href="#sosten">Lo que nos sostiene</a>
+                <a href="#contacto">Contacto</a>
             </nav>
-
-            <div class="hidden md:flex items-center space-x-4 relative">
-                <input type="text" id="input-busqueda" placeholder="Buscar..." 
-                    class="bg-white/10 border border-white/20 rounded-full px-4 py-1 text-sm focus:outline-none focus:bg-white focus:text-gray-800 transition-all w-0 opacity-0 overflow-hidden">
-                
-                <button onclick="toggleBusqueda()" class="text-white opacity-70 hover:opacity-100 transition-opacity">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-            </div>
-
-            <button class="md:hidden text-white" onclick="toggleMenu()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-            
-            <div id="menu-mobile" class="md:hidden shadow-xl"></div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 md:p-14">
-        <div id="vista-seccion"></div>
+    <main>
+        <!-- ① HERO EDITORIAL (SIN BOTÓN, SOLO FLECHA DE DESPLAZAMIENTO) -->
+        <section id="inicio" class="hero-section">
+            <div class="hero-bg-wrapper">
+                <img src="assets/hero-macro.jpg" 
+                     alt="Fotografía macro de hoja con gotas de agua" 
+                     class="hero-img" 
+                     loading="eager">
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">Tu cuerpo es un ecosistema vivo.</h1>
+                <p class="hero-subtitle">
+                    Nada está aislado. Todo se conecta con todo.<br>
+                    Dentro de ti habita un universo de vida que también necesita ser nutrido.
+                </p>
+            </div>
+
+            <!-- Indicador sutil de scroll -->
+            <a href="#manifiesto" class="scroll-indicator" aria-label="Deslizar hacia abajo">
+                <span>Explorar</span>
+                <div class="scroll-arrow">
+                    <svg width="18" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 5v14M19 12l-7 7-7-7"/>
+                    </svg>
+                </div>
+            </a>
+        </section>
+
+        <!-- PAUSA EDITORIAL 1 -->
+        <section class="editorial-pause-section">
+            <div class="container container-narrow center">
+                <blockquote class="standalone-quote">
+                    "Comprender la vida comienza por reconocer la vida que habita en nosotros."
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ② MANIFIESTO EDITORIAL -->
+        <section id="manifiesto" class="manifesto-section">
+            <div class="container container-narrow">
+                <div class="book-page">
+                    <span class="chapter-tag center-tag">Manifiesto</span>
+                    <h2 class="manifesto-title center">El ecosistema que habita en ti.</h2>
+                    
+                    <div class="manifesto-body">
+                        <p class="lead">Tu cuerpo no es una pieza aislada. Es una totalidad. Es un ecosistema vivo donde nada está aislado y todo se conecta con todo.</p>
+                        <p>Células, órganos y los billones de microorganismos forman una red de interacciones de la que emerge la vida</p>
+                        <p>De esta comprensión nace <strong>Vitoma</strong>: la unión entre la fuerza vital (<em>Vit</em>) y la totalidad (<em>Oma</em>).</p>
+                        <p>Somos la respuesta a la necesidad de comprender cómo funciona nuestro universo interno para identificar sus necesidades esenciales y devolverle su equilibrio natural.</p>
+                        <p class="highlight-text center">No somos solo una marca. Somos un puente entre la sabiduría biológica y tu salud cotidiana.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA DE REVELACIÓN EDITORIAL -->
+        <section class="revelation-section">
+            <div class="container container-narrow center">
+                <div class="revelation-box">
+                    <h2 class="revelation-title">"Somos vida que contiene vida."</h2>
+                    <span class="revelation-brand">Vitoma</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAUSA EDITORIAL 2 -->
+        <section class="editorial-pause-section">
+            <div class="container container-narrow center">
+                <blockquote class="standalone-quote">
+                    "Nutrir no consiste en llenar el cuerpo. Consiste en comprender qué necesita el ecosistema que habita en ti"
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ③ GHEE (ORIGEN ARTESANAL) -->
+        <section id="ghee" class="product-section">
+            <div class="container">
+                <div class="center">
+                    <!-- Ajuste 4: Tag actualizado -->
+                    <span class="chapter-tag center-tag">Origen Artesanal</span>
+                    <h2 class="section-title">Todo alimento tiene una historia.</h2>
+                </div>
+
+                <div class="product-grid">
+                    <div class="product-info">
+                        <p class="product-intro">
+                            Algunos alimentos conservan una estructura que merece ser respetada. Nuestro Ghee nace de esa convicción: lo elaboramos lentamente para preservar la naturaleza del alimento y ofrecer una grasa tradicional, estable y versátil. 
+                        </p>
+                        <p class="product-intro">
+                            <strong> Disponible en presentación de 200 grs y 420 grs</strong>
+                        </p>
+                        <div class="product-accordion">
+                            <details open>
+                                <summary><h3>¿Qué es?</h3></summary>
+                                <p>Mantequilla clarificada mediante un proceso artesanal de cocción lenta que elimina el agua y los sólidos lácteos, resultando en una grasa pura, noble y de altísima estabilidad.</p>
+                            </details>
+                            
+                            <details open>
+                                <summary><h3>Beneficios clave</h3></summary>
+                                <ul class="benefits-list">
+                                    <li>
+                                        <strong>100% Pura y Natural:</strong> Elaborada artesanalmente, sin conservantes, aditivos ni procesos industriales agresivos.
+                                    </li>
+                                    <li>
+                                        <strong>Alta Estabilidad Térmica (Punto de Humo 250 °C):</strong> Soporta elevadas temperaturas de cocción sin oxidarse ni generar compuestos tóxicos.
+                                    </li>
+                                    <li>
+                                        <strong>Libre de Lactosa y Caseína:</strong> Su cuidadosa clarificación remueve los azúcares y proteínas lácteas, haciéndola ideal para personas con intolerancia o sensibilidad.
+                                    </li>
+                                    <li>
+                                        <strong>Salud Intestinal y Microbiota:</strong> Fuente natural de ácido butírico, nutriente clave que protege la mucosa intestinal en casos de intestino permeable o irritable.
+                                    </li>
+                                </ul>
+                            </details>
+
+                            <details>
+                                <summary><h3>¿Cómo usarlo?</h3></summary>
+                                <p>Ideal para saltear, hornear, untar en preparaciones tibias o integrar en bebidas calientes para potenciar la absorción de nutrientes liposolubles.</p>
+                            </details>
+                        </div>
+
+                        <!-- Ajuste 5: Botón Centrado -->
+                        <div class="product-cta center">
+                            <a href="https://wa.me/573007851872?text=Hola,%20quisiera%20conocer%20m%C3%A1s%20detalles%20o%20solicitar%20el%20Ghee%20de%20Vitoma." 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               class="btn-primary">
+                                Descubre nuestro ghee
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-visual">
+                        <div class="image-frame">
+                            <img src="assets/ghee-frasco.jpg" 
+                                 alt="Frasco artesanal de Ghee Vitoma" 
+                                 loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAUSA EDITORIAL 3 (Ajuste 6: Nueva frase de transición) -->
+        <section class="editorial-pause-section">
+            <div class="container container-narrow center">
+                <blockquote class="standalone-quote">
+                    "La verdadera nutrición no transforma el alimento; honra la sabiduría que ya habita en él."
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ④ LO QUE NOS SOSTIENE -->
+        <section id="sosten" class="pillars-section">
+            <div class="container">
+                <div class="center">
+                    <span class="chapter-tag center-tag">Fundamentos</span>
+                    <h2 class="section-title">Lo que sostiene cada producto</h2>
+                </div>
+
+                <div class="pillars-grid">
+                    <article class="pillar-card">
+                        <span class="pillar-num">I</span>
+                        <h3>Pureza absoluta</h3>
+                        <p>Nuestro proceso es artesanal, meticuloso y respetuoso. Sin químicos. Sin conservantes. Sin procesos industriales agresivos.</p>
+                    </article>
+
+                    <article class="pillar-card">
+                        <span class="pillar-num">II</span>
+                        <h3>Respeto por el origen</h3>
+                        <p>La calidad comienza en la tierra. Seleccionamos materias primas biológicamente limpias y de producción responsable.</p>
+                    </article>
+
+                    <article class="pillar-card">
+                        <span class="pillar-num">III</span>
+                        <h3>Coherencia sistémica</h3>
+                        <p>Todo lo que lleva nuestro nombre debe contribuir al equilibrio del cuerpo. Nunca a su deterioro.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAUSA EDITORIAL 4 -->
+        <section class="editorial-pause-section">
+            <div class="container container-narrow center">
+                <blockquote class="standalone-quote">
+                    "Comprender el cuerpo también es una forma de cuidarlo."
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ⑤ CONTACTO B2B (Ajuste 7: Título "Diálogo" eliminado) -->
+        <section id="contacto" class="contact-section">
+            <div class="container container-narrow center">
+                <h2 class="section-title">Iniciemos una conversación</h2>
+                <p class="contact-text">
+                    Si quieres conocer nuestro Ghee o llevarlo a tu tienda,<br>
+                    será un gusto conversar contigo.
+                </p>
+
+                <div class="contact-actions center">
+                    <a href="https://wa.me/573007851872?text=Hola,%20quisiera%20conocer%20m%C3%A1s%20sobre%20Vitoma%20para%20mi%20tienda." 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-primary">
+                       Hablar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycby2H9_EwDImYT_isi-v0ghnQQb_-DuteSGSpU4k671DU6hXmdYSDCZCIW5EVayoLow/exec";
-        let datosGlobales = {};
+    <!-- FOOTER EDITORIAL (Ajuste 8: Logo sin recuadro) -->
+    <footer class="site-footer">
+        <div class="container footer-content center">
+            <img src="assets/Logo-positivo.png" alt="Vitoma" class="footer-logo-img">
+            <p class="footer-tagline">Vida que contiene vida.</p>
+            <p class="copyright">&copy; 2026 Vitoma. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
-        function toggleMenu() { document.getElementById('menu-mobile').classList.toggle('active'); }
-
-        function toggleBusqueda() {
-            const input = document.getElementById('input-busqueda');
-            if (input.classList.contains('w-0')) {
-                input.classList.remove('w-0', 'opacity-0');
-                input.classList.add('w-48', 'opacity-100');
-                input.focus();
-            } else {
-                input.classList.add('w-0', 'opacity-0');
-                input.classList.remove('w-48', 'opacity-100');
-                input.value = "";
-            }
-        }
-
-        async function inicializarApp() {
-            try {
-                const res = await fetch(API_URL);
-                datosGlobales = await res.json();
-                
-                const config = datosGlobales.config || [];
-                const getVal = (p) => config.find(c => c.Parametro.trim().toLowerCase() === p.toLowerCase())?.Valor;
-
-                if(getVal('url_logo')) document.getElementById('logo-header').src = getVal('url_logo');
-                if(getVal('url_fondo')) document.getElementById('fondo-marca-agua').style.backgroundImage = `url('${getVal('url_fondo')}')`;
-                if(getVal('texto_anuncio')) document.getElementById('texto-anuncio-val').innerText = getVal('texto_anuncio');
-
-                const html = datosGlobales.menu.map(m => `<button onclick="navegar('${m.ID_Seccion.trim()}')" class="btn-nav">${m.Nombre}</button>`).join('');
-                document.getElementById('menu-dinamico').innerHTML = html;
-                document.getElementById('menu-mobile').innerHTML = html;
-
-                const hash = window.location.hash.replace('#', '');
-                navegar(hash || (datosGlobales.menu[0] ? datosGlobales.menu[0].ID_Seccion.trim() : ''));
-
-            } catch (e) { console.error("Error:", e); }
-        }
-
-        function navegar(id) {
-            window.location.hash = id;
-            cambiarSeccion(id);
-            if(window.innerWidth < 768) document.getElementById('menu-mobile').classList.remove('active');
-        }
-
-        function cambiarSeccion(id) {
-            const vista = document.getElementById('vista-seccion');
-            const sec = datosGlobales.secciones?.find(s => s.ID_Seccion.trim().toLowerCase() === id.toLowerCase());
-            
-            if (sec) {
-                vista.innerHTML = `<div class="prose-vitoma animate-fade-in"><h1>${sec.Titulo || ''}</h1><div class="text-justify text-lg text-gray-700">${sec.Contenido}</div></div>`;
-            } else {
-                const prods = datosGlobales.productos.filter(p => p.ID_Seccion.trim().toLowerCase() === id.toLowerCase());
-                if(prods.length > 0) {
-                    vista.innerHTML = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 animate-fade-in">
-                        ${prods.map(p => {
-                            const imagenes = p.URL_Imagen.split(',').map(img => img.trim());
-                            const mainImgId = `img-main-${p.Nombre.replace(/\s+/g, '')}`;
-                            
-                            return `
-                            <div class="bg-white p-6 md:p-8 flex flex-col h-full rounded-sm shadow-sm border border-gray-100 hover:shadow-xl transition-all">
-                                <div class="relative mb-6">
-                                    <img id="${mainImgId}" src="${imagenes[0]}" class="w-full h-64 object-cover rounded-sm shadow-inner transition-opacity duration-300">
-                                    ${imagenes.length > 1 ? `
-                                        <div class="flex gap-2 mt-3 overflow-x-auto pb-2 custom-scrollbar">
-                                            ${imagenes.map(img => `
-                                                <img src="${img}" onclick="document.getElementById('${mainImgId}').src='${img}'" 
-                                                     class="w-12 h-12 object-cover cursor-pointer border border-gray-200 hover:border-[#D4AF37] transition-all opacity-80 hover:opacity-100">
-                                            `).join('')}
-                                        </div>
-                                    ` : ''}
-                                </div>
-
-                                <h3 class="text-2xl font-bold text-gray-900 mb-2">${p.Nombre}</h3>
-                                <p class="text-[10px] text-[#D4AF37] font-black tracking-widest mb-4 uppercase">${p.Ingredientes || ''}</p>
-                                
-                                <div class="text-sm text-gray-600 flex-grow italic mb-6 leading-relaxed">
-                                    ${p.Funcion_Cuerpo || ''}
-                                </div>
-
-                                <div class="mt-auto pt-4 border-t flex justify-between items-baseline font-light text-2xl text-[#4A5D4E]">
-                                    <span>$${p.Precio}</span><span class="text-xs font-bold text-gray-300 uppercase">${p.Tamaño || ''}</span>
-                                </div>
-                            </div>`;
-                        }).join('')}</div>`;
-                }
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.getElementById('input-busqueda').addEventListener('input', (e) => {
-            const termino = e.target.value.toLowerCase().trim();
-            if (termino.length < 2) return;
-
-            const vista = document.getElementById('vista-seccion');
-            const prods = datosGlobales.productos.filter(p => 
-                p.Nombre.toLowerCase().includes(termino) || (p.Ingredientes && p.Ingredientes.toLowerCase().includes(termino))
-            );
-            const secs = datosGlobales.secciones.filter(s => 
-                s.Titulo.toLowerCase().includes(termino) || s.Contenido.toLowerCase().includes(termino)
-            );
-
-            if (prods.length > 0 || secs.length > 0) {
-                vista.innerHTML = `<div class="animate-fade-in"><h2 class="text-xl mb-8 italic text-gray-500">Resultados para: "${termino}"</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">${prods.map(p => `<div class="bg-white p-4 border rounded shadow-sm"><h3 class="font-bold">${p.Nombre}</h3><p class="text-sm text-gray-500">${p.Precio}</p><button onclick="navegar('${p.ID_Seccion}')" class="text-xs text-[#D4AF37] underline mt-2">Ver producto</button></div>`).join('')}</div>
-                <div class="mt-10 space-y-6">${secs.map(s => `<div class="border-l-4 border-[#D4AF37] pl-4"><h3 class="font-bold text-lg">${s.Titulo}</h3><button onclick="navegar('${s.ID_Seccion}')" class="text-sm text-gray-400">Ver sección...</button></div>`).join('')}</div></div>`;
-            }
-        });
-
-        inicializarApp();
-    </script>
+    <!-- Script Principal -->
+    <script src="script.js"></script>
 </body>
 </html>
